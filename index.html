@@ -3,164 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 3 Blockchain Interactive Quiz</title>
+    <title>Unit 3 Blockchain Technology Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .option-btn { transition: all 0.2s; }
-        .option-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
     <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col p-4">
         <!-- Start Screen -->
         <div id="start-screen" class="flex-1 flex flex-col justify-center items-center text-center">
-            <div class="w-24 h-24 bg-blue-100 rounded-3xl flex items-center justify-center mb-6 shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+            <div class="w-24 h-24 bg-blue-100 rounded-3xl flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
             </div>
             <h1 class="text-3xl font-bold text-slate-800 mb-2">Unit 3 Quiz</h1>
-            <p class="text-slate-500 mb-8 font-medium italic">Blockchain Technology (50 MCQs)</p>
-            <button onclick="startQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:bg-blue-700 transition-all">
-                Start Solving Now
-            </button>
-            <p class="mt-6 text-xs text-slate-400 uppercase tracking-widest font-bold">MSBTE Emerging Trends</p>
+            <p class="text-slate-500 mb-8 font-medium italic">Blockchain Technology (150 MCQs)</p>
+            <button onclick="startQuiz()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:bg-blue-700 mb-4 transition-colors">Start Solving</button>
+            <a href="index.html" class="text-blue-600 font-bold underline hover:text-blue-800 transition-colors">← Go back</a>
         </div>
 
-        <!-- Quiz Screen (Hidden Initially) -->
+        <!-- Quiz Screen -->
         <div id="quiz-screen" class="hidden flex-1 flex flex-col">
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span id="progress-text" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1/50</span>
+                    <span id="progress-text" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1/150</span>
                     <span id="score-text" class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">Score: 0</span>
                 </div>
-                <div class="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 2%"></div>
-                </div>
+                <div class="h-2 w-full bg-slate-200 rounded-full overflow-hidden"><div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 2%"></div></div>
             </div>
-
-            <h2 id="question-text" class="text-xl font-bold text-slate-800 mb-6 leading-snug">Loading Question...</h2>
-
-            <div id="options-container" class="space-y-3 mb-6">
-                <!-- Options will be injected here -->
-            </div>
-
-            <div id="explanation-box" class="hidden mb-6 p-4 bg-slate-900 rounded-2xl text-slate-300 text-sm italic border-l-4 border-blue-500 animate-in fade-in">
-                <!-- Explanation injected here -->
-            </div>
-
-            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-slate-800 text-white py-4 rounded-2xl font-bold text-lg shadow-md mt-auto">
-                Next Question
-            </button>
+            <h2 id="question-text" class="text-xl font-bold text-slate-800 mb-6 leading-snug"></h2>
+            <div id="options-container" class="space-y-3 mb-6"></div>
+            <div id="explanation-box" class="hidden mb-6 p-4 bg-slate-900 rounded-2xl text-slate-300 text-sm italic border-l-4 border-blue-500"></div>
+            <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-slate-800 text-white py-4 rounded-2xl font-bold text-lg shadow-md mt-auto hover:bg-slate-700 transition-colors">Next Question</button>
         </div>
 
-        <!-- Result Screen (Hidden Initially) -->
+        <!-- Result Screen -->
         <div id="result-screen" class="hidden flex-1 flex flex-col justify-center items-center text-center">
-            <div class="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center mb-6 shadow-inner">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z" />
-                </svg>
-            </div>
-            <h2 class="text-3xl font-black text-slate-800 mb-1">Great Job!</h2>
-            <p class="text-slate-500 mb-8 font-medium">Blockchain Proficiency Result</p>
-            
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 w-full mb-8 shadow-sm">
+            <h2 class="text-3xl font-black text-slate-800 mb-8">Results</h2>
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 w-full mb-8">
                 <p id="final-score" class="text-6xl font-black text-blue-600 mb-2">0</p>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Correct out of 50</p>
+                <p id="final-total" class="text-xs font-bold text-slate-400 uppercase">Correct out of 150</p>
             </div>
-
-            <button onclick="location.reload()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Retry Mock Exam
-            </button>
+            <button onclick="location.reload()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold mb-4 hover:bg-slate-800 transition-colors">Retry Quiz</button>
+            <a href="index.html" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-center hover:bg-blue-700 transition-colors">← Home</a>
         </div>
     </div>
 
     <script>
         const questions = [
-            { q: "What is the primary definition of Blockchain?", options: ["A centralized cloud database", "A decentralized, distributed digital ledger", "A high-speed internet protocol", "A type of firewall software"], a: 1, e: "Blockchain is defined as a decentralized ledger that records transactions securely without a central authority." },
-            { q: "Which feature ensures that data on a blockchain cannot be modified?", options: ["Transparency", "Scalability", "Immutability", "Anonymity"], a: 2, e: "Immutability is the core security feature that makes records permanent." },
-            { q: "Instead of a single server, data is stored on multiple computers called:", options: ["Nodes", "Terminals", "Clusters", "Mainframes"], a: 0, e: "Nodes are the participants in the network that each maintain a copy of the ledger." },
-            { q: "Which feature creates a public, auditable trail for every transaction?", options: ["Privacy", "Transparency", "Efficiency", "Centralization"], a: 1, e: "Transparency allows anyone (or authorized users) to audit the sequence of events." },
-            { q: "What is a 'Smart Contract'?", options: ["A PDF legal document", "Self-executing code that automates agreements", "A digital signature only", "An AI-powered lawyer"], a: 1, e: "Smart contracts are programs that run automatically when conditions are met." },
-            { q: "In traditional banking, the system architecture is usually:", options: ["Decentralized", "Peer-to-Peer", "Centralized", "Distributed"], a: 2, e: "Traditional banking relies on a central authority or database." },
-            { q: "What links one block to the previous one in the chain?", options: ["User password", "Previous Block Hash", "Block Number only", "Physical cable"], a: 1, e: "The hash of the previous block is stored in the current block, creating the secure chain." },
-            { q: "Which consensus mechanism is used by Bitcoin?", options: ["Proof of Stake", "Proof of Work", "Proof of Authority", "PBFT"], a: 1, e: "Bitcoin uses Proof of Work (PoW) which involves miners solving puzzles." },
-            { q: "A 'Permissionless' blockchain is also known as a:", options: ["Private Blockchain", "Public Blockchain", "Consortium Blockchain", "Hybrid Blockchain"], a: 1, e: "Public blockchains are permissionless because anyone can join and participate." },
-            { q: "Which layer of blockchain defines the physical storage of data?", options: ["Consensus Layer", "Data Layer", "Application Layer", "Network Layer"], a: 1, e: "The Data Layer manages how data is structured into blocks and hashed." },
-            { q: "Which type of blockchain is controlled by a single company?", options: ["Public", "Consortium", "Private", "Global"], a: 2, e: "Private blockchains are restricted and controlled by one entity for internal use." },
-            { q: "Which blockchain type is managed by multiple pre-selected organizations?", options: ["Public", "Private", "Consortium", "Hybrid"], a: 2, e: "Consortium blockchains (e.g. R3 Corda) are semi-decentralized." },
-            { q: "The 'Application Layer' provides which interface to the user?", options: ["DApps and APIs", "The raw kernel code", "P2P protocol rules", "Mining hardware drivers"], a: 0, e: "Users interact with blockchain through DApps (Decentralized Applications) in the top layer." },
-            { q: "Which cryptocurrency popularized the use of programmable Smart Contracts?", options: ["Bitcoin", "Litecoin", "Ethereum", "Dogecoin"], a: 2, e: "Ethereum was built specifically to support a programmable logic layer." },
-            { q: "What is the 'Double Spending' problem?", options: ["Spending too much money", "Spending the same digital coin twice", "Using two wallets", "Buying twice as much crypto"], a: 1, e: "Blockchain consensus prevents the same asset from being transferred to two people simultaneously." },
-            { q: "What is the very first block in a blockchain called?", options: ["Primary Block", "Origin Block", "Genesis Block", "Standard Block"], a: 2, e: "The Genesis Block is the hard-coded first block of any chain." },
-            { q: "Which consensus mechanism uses 'Stakers' instead of 'Miners'?", options: ["Proof of Work", "Proof of Stake", "Proof of Identity", "Proof of History"], a: 1, e: "Proof of Stake (PoS) allows validators to secure the network based on the coins they hold." },
-            { q: "What is 'Finality' in blockchain?", options: ["The end of the network", "The moment a transaction is irreversible", "The size of a block", "The number of users"], a: 1, e: "Finality ensures that once a block is added, it will never be reversed or changed." },
-            { q: "Which industry uses blockchain for 'Provenance' (origin tracking)?", options: ["Gaming", "Supply Chain", "Social Media", "Weather Forecasting"], a: 1, e: "Supply chains use blockchain to verify the origin and journey of products." },
-            { q: "What is 'Gas' in the context of Ethereum?", options: ["Physical fuel", "The unit measuring computational effort for fees", "A type of NFT", "Internet speed meter"], a: 1, e: "Gas fees are paid to miners/validators to process transactions on the network." },
-            { q: "A 'Hard Fork' results in:", options: ["Network speed doubling", "The blockchain splitting into two separate paths", "Data being deleted", "Mining hardware failing"], a: 1, e: "Forks happen when the community changes the rules, splitting the chain (e.g. BTC and BCH)." },
-            { q: "Which challenge refers to low transaction processing speeds?", options: ["Interoperability", "Privacy", "Scalability", "Complexity"], a: 2, e: "Scalability is a major challenge for networks like Bitcoin which handle only 7 TPS." },
-            { q: "The conflict between privacy laws and blockchain is usually about:", options: ["The Right to be Forgotten vs Immutability", "Encryption speed", "Anonymity", "Energy use"], a: 0, e: "If data cannot be deleted (Immutability), it violates laws that require data deletion." },
-            { q: "What is a 'Cold Wallet'?", options: ["A wallet with zero balance", "Offline storage for private keys (highly secure)", "A mobile app", "A bank account"], a: 1, e: "Cold wallets (hardware) are not connected to the internet, protecting them from hackers." },
-            { q: "Which consensus is most energy-efficient?", options: ["Proof of Work", "Proof of Stake", "Mining", "Flooding"], a: 1, e: "PoS eliminates the need for massive computing power, making it green." },
-            { q: "Which platform is an enterprise-grade private blockchain framework?", options: ["Dogecoin", "Hyperledger Fabric", "Solana", "Shiba Inu"], a: 1, e: "Hyperledger Fabric is designed specifically for business-to-business networks." },
-            { q: "What represents ownership of unique digital items like art?", options: ["Fungible tokens", "NFTs (Non-Fungible Tokens)", "Stablecoins", "Private keys"], a: 1, e: "NFTs are unique tokens that prove ownership of specific digital assets." },
-            { q: "In the 'Data Layer', what is a 'Merkle Tree' used for?", options: ["Decorating the UI", "Efficient verification of transactions in a block", "Connecting to the wifi", "Mining new coins"], a: 1, e: "Merkle Trees allow nodes to verify if a transaction belongs to a block without downloading the whole block." },
-            { q: "Which layer handles P2P discovery of other nodes?", options: ["Application Layer", "Network Layer", "Contract Layer", "Physical Layer"], a: 1, e: "The Network Layer manages how nodes find and talk to each other." },
-            { q: "What is the risk of a '51% Attack'?", options: ["Losing 51% of your battery", "An attacker gaining majority control to manipulate the ledger", "The price dropping 51%", "The network getting 51% faster"], a: 1, e: "If an entity controls most mining power, they can potentially reverse transactions." },
-            { q: "Which industry uses blockchain to verify academic degrees?", options: ["Gaming", "Digital Identity and Education", "Agriculture", "Entertainment"], a: 1, e: "Blockchain can store credentials to prevent diploma fraud." },
-            { q: "A 'Stablecoin' like USDT is pegged to:", options: ["Bitcoin price", "Fiat currency (like USD)", "Gold price only", "Total number of users"], a: 1, e: "Stablecoins maintain a $1 value by being backed by real-world assets." },
-            { q: "Which programming language is mainly used for Ethereum contracts?", options: ["Python", "JavaScript", "Solidity", "Java"], a: 2, e: "Solidity is the object-oriented language for writing smart contracts." },
-            { q: "What is 'DeFi'?", options: ["Deferred Filing", "Decentralized Finance", "Digital Files", "Default Finance"], a: 1, e: "DeFi removes banks from lending, borrowing, and trading using code." },
-            { q: "The waiting area for unconfirmed transactions is called:", options: ["Mempool", "Mining rig", "Hard drive", "Kernel"], a: 0, e: "Transactions wait in the Memory Pool (Mempool) until they are picked for a block." },
-            { q: "Which layer contains the actual mining hardware?", options: ["Consensus Layer", "Infrastructure Layer", "Data Layer", "Application Layer"], a: 1, e: "Infrastructure consists of the physical servers and miners." },
-            { q: "What is 'Self-Sovereign Identity'?", options: ["Identity given by the king", "Users owning and controlling their own digital ID", "Social media profiles", "Credit cards"], a: 1, e: "SSI gives users total control over their personal data via blockchain." },
-            { q: "Which consensus is used by Ethereum 2.0 (The Merge)?", options: ["Proof of Work", "Proof of Stake", "Proof of Burn", "Proof of Elapsed Time"], a: 1, e: "Ethereum moved to PoS to reduce energy consumption by 99%." },
-            { q: "In healthcare, blockchain prevents drug:", options: ["Expirations", "Counterfeiting", "Overdosing", "Shortages"], a: 1, e: "Blockchain provides a secure history to verify if a drug is authentic." },
-            { q: "R3 Corda is primarily built for:", options: ["Social gaming", "Financial institutions", "Personal blogs", "Public voting"], a: 1, e: "Corda is a consortium DLT designed for complex business and finance." },
-            { q: "What is the 'Contract Layer' responsible for?", options: ["Connecting to the internet", "Executing scripts and business logic", "Mining coins", "Updating user passwords"], a: 1, e: "This layer houses the smart contracts and programmable rules." },
-            { q: "Which challenge is about blockchains communicating with each other?", options: ["Scalability", "Interoperability", "Privacy", "Security"], a: 1, e: "Interoperability is the ability to transfer assets between different networks." },
-            { q: "What does 'EVM' stand for?", options: ["Electronic Voting Machine", "Ethereum Virtual Machine", "Every Value Matters", "Electronic Valve Map"], a: 1, e: "The EVM is the virtual engine that executes contract code on Ethereum." },
-            { q: "What is a 'Rug Pull'?", options: ["A hardware failure", "A scam where developers steal investor funds", "A type of mining tool", "A consensus update"], a: 1, e: "Rug pulls are common in DeFi where liquidity is suddenly removed by developers." },
-            { q: "Which of these is a benefit of blockchain for voting?", options: ["Making voting faster only", "Ensuring results are immutable and tamper-proof", "Reducing the number of candidates", "Allowing users to vote 10 times"], a: 1, e: "Blockchain makes voting transparent and impossible to manipulate." },
-            { q: "What links the 'Control Layer' in NGN to blockchain?", options: ["Both handle social media", "Both handle the signaling and logic of the system", "Both use the same physical cables", "There is no link"], a: 1, e: "Control layers in both architectures manage the rules and decision making." },
-            { q: "What happens if you lose your private key?", options: ["Reset it with an OTP", "Call the blockchain company", "Lose access to your assets forever", "The miner can recover it"], a: 2, e: "Decentralization means no one else has your key; losing it means losing everything." },
-            { q: "What is 'Tokenization'?", options: ["Playing a game with tokens", "Digitizing a real-world asset (like real estate) into a token", "Deleting a block", "Translating a website"], a: 1, e: "Tokenization allows fractional ownership of expensive assets like property." },
-            { q: "Which blockchain is semi-decentralized?", options: ["Public", "Private", "Consortium", "Standard"], a: 2, e: "Consortium blockchains are shared by a group, making them semi-decentralized." },
-            { q: "Blockchain aims to replace trust in people with trust in:", options: ["Governments", "Code and Mathematics", "Banks", "Social Media"], a: 1, e: "The goal is 'Trustless' systems where cryptography guarantees the truth." }
+            // 1-20: Blockchain Fundamentals
+            { q: "What is Blockchain fundamentally?", options: ["A centralized database", "A distributed and decentralized digital ledger", "A programming language", "An operating system"], a: 1, e: "Blockchain is a distributed ledger technology that records transactions across many computers in a peer-to-peer network." },
+            { q: "Which characteristic makes Blockchain immutable?", options: ["Transactions can be edited by admins", "Data is stored on a single server", "Once data is recorded, it cannot be altered without changing all subsequent blocks", "It uses temporary memory"], a: 2, e: "Immutability is achieved through cryptographic hashing; altering one block breaks the entire chain." },
+            { q: "What type of network architecture does Blockchain use?", options: ["Client-Server", "Master-Slave", "Peer-to-Peer (P2P)", "Hierarchical"], a: 2, e: "Blockchain operates on a P2P network where all nodes have equal status and share the ledger." },
+            { q: "Who is credited with inventing the first blockchain database as the core of Bitcoin?", options: ["Vitalik Buterin", "Satoshi Nakamoto", "Nick Szabo", "Hal Finney"], a: 1, e: "Satoshi Nakamoto introduced the blockchain architecture in the 2008 Bitcoin whitepaper." },
+            { q: "What is a 'Node' in a blockchain network?", options: ["A type of cryptocurrency", "A computer connected to the blockchain network", "A smart contract", "A cryptographic hash"], a: 1, e: "Any computer that connects to the blockchain network and participates in maintaining the ledger is a node." },
+            { q: "What is the primary advantage of a decentralized system?", options: ["It is controlled by a single entity", "It has a single point of failure", "No single entity has full control, reducing censorship and failure risks", "It is faster than centralized databases"], a: 2, e: "Decentralization eliminates the single point of failure and removes the need for a central trusted authority." },
+            { q: "Which problem does Blockchain solve in digital currency?", options: ["Slow internet speeds", "The Double-Spending problem", "Lack of programming languages", "High electricity costs"], a: 1, e: "The double-spending problem is the risk of digital money being spent twice. Blockchain solves this using a consensus mechanism and a public ledger." },
+            { q: "What does 'Transparency' mean in a public blockchain?", options: ["Users must use their real names", "Transactions are hidden", "Anyone can view the transaction history on the public ledger", "Only miners can see the data"], a: 2, e: "Public blockchains are transparent; explorers allow anyone to view the entire transaction history." },
+            { q: "Which of the following is NOT a core feature of Blockchain?", options: ["Decentralization", "Centralized control", "Immutability", "Transparency"], a: 1, e: "Blockchain is defined by its lack of centralized control." },
+            { q: "A ledger in blockchain is best described as:", options: ["A secret code", "A record-keeping book of all transactions", "A physical hard drive", "A mining algorithm"], a: 1, e: "A ledger is simply a record of transactions, which in blockchain is digital and distributed." },
+            { q: "What links blocks together in a blockchain?", options: ["IP Addresses", "Physical cables", "Cryptographic hashes", "Usernames"], a: 2, e: "Each block contains the cryptographic hash of the previous block, creating a secure chain." },
+            { q: "What happens if a hacker changes a transaction in an older block?", options: ["The network speeds up", "Only that block is affected", "The hash of that block changes, invalidating all subsequent blocks", "The hacker is banned automatically"], a: 2, e: "Due to the avalanche effect in hashing, any change breaks the hash chain, alerting the network to the tampering." },
+            { q: "What is the 'Genesis Block'?", options: ["The largest block in the chain", "The first block ever created in a blockchain", "A block containing smart contracts", "A block rejected by miners"], a: 1, e: "The Genesis Block is Block 0 or Block 1, the foundation upon which the rest of the blockchain is built." },
+            { q: "How is trust established in a blockchain network?", options: ["Through a central bank", "Through cryptographic algorithms and consensus protocols", "By signing legal documents", "By identifying all users"], a: 1, e: "Blockchain is a 'trustless' system; trust is placed in the mathematics and code (consensus) rather than a central authority." },
+            { q: "Which concept ensures that everyone in the network has the same copy of the ledger?", options: ["Encryption", "Consensus", "Hashing", "Routing"], a: 1, e: "Consensus algorithms ensure all honest nodes agree on the true state of the distributed ledger." },
+            { q: "What does 'Distributed Ledger Technology' (DLT) mean?", options: ["Data is stored in one massive server", "Data is synced and distributed across multiple nodes in multiple locations", "Data is printed and distributed", "Data is deleted after distribution"], a: 1, e: "DLT refers to databases that are consensually shared and synchronized across networks spread across multiple sites." },
+            { q: "Blockchain is a specific type of DLT. True or False?", options: ["True, all blockchains are DLTs", "False, blockchain has nothing to do with DLT", "True, but DLT is older", "False, DLT is a type of blockchain"], a: 0, e: "Blockchain is a specific implementation of DLT where data is organized into chained blocks." },
+            { q: "What does pseudo-anonymity mean in Bitcoin?", options: ["Users must provide ID", "Transactions are tied to real names", "Transactions are tied to public addresses, not real-world identities", "Transactions are completely invisible"], a: 2, e: "Bitcoin is pseudo-anonymous; identities are hidden behind alphanumeric addresses, but the transactions are public." },
+            { q: "What is the main disadvantage of Blockchain technology?", options: ["It is too easy to hack", "High scalability and low energy consumption", "It has a single point of failure", "Low scalability and (often) high energy consumption"], a: 3, e: "Public blockchains often struggle with processing many transactions per second (scalability) and PoW uses massive energy." },
+            { q: "The process of verifying and adding transactions to the blockchain is called:", options: ["Hashing", "Mining / Validating", "Encrypting", "Compiling"], a: 1, e: "Nodes that verify and package transactions into blocks are called miners (in PoW) or validators (in PoS)." },
+
+            // 21-40: Cryptography & Hashing
+            { q: "What cryptographic function is predominantly used in Bitcoin?", options: ["MD5", "SHA-256", "RSA", "AES"], a: 1, e: "Bitcoin uses the Secure Hash Algorithm 256-bit (SHA-256) for both block hashing and address generation." },
+            { q: "A hash function takes an input of any size and produces an output of:", options: ["Variable size", "A fixed size", "Double the size", "Zero size"], a: 1, e: "Cryptographic hash functions always produce a fixed-length output regardless of the input size." },
+            { q: "Which property of a hash function ensures that a tiny change in input completely changes the output?", options: ["Pre-image resistance", "Avalanche effect", "Collision resistance", "Determinism"], a: 1, e: "The avalanche effect ensures that even changing one comma alters the entire hash drastically." },
+            { q: "What does 'Deterministic' mean in hashing?", options: ["The same input will always produce the same output hash", "The hash changes every time", "It determines the internet speed", "It decrypts the data"], a: 0, e: "A deterministic algorithm guarantees identical output for identical input every single time." },
+            { q: "Which is a one-way mathematical function?", options: ["Symmetric Encryption", "Asymmetric Encryption", "Hashing", "Base64 Encoding"], a: 2, e: "Hashing is a one-way process; you cannot reverse-engineer the original input from the hash output." },
+            { q: "What is a 'Collision' in hash functions?", options: ["When two nodes mine a block simultaneously", "When two different inputs produce the exact same hash output", "When a block is rejected", "When the network crashes"], a: 1, e: "A strong hash function must be collision-resistant, making it statistically impossible to find two inputs that yield the same hash." },
+            { q: "Which encryption type uses a Public Key and a Private Key?", options: ["Symmetric Encryption", "Asymmetric (Public Key) Cryptography", "Hashing", "Encoding"], a: 1, e: "Asymmetric cryptography uses two keys: a public key to receive/encrypt, and a private key to sign/decrypt." },
+            { q: "In blockchain, what is the 'Private Key' used for?", options: ["To share with friends to receive funds", "To uniquely identify the user publicly", "To digitally sign transactions and prove ownership of funds", "To encrypt the entire blockchain"], a: 2, e: "The private key is a secret mathematical key used to authorize and sign transactions." },
+            { q: "What happens if you lose your Private Key?", options: ["You can request a password reset", "The blockchain admins will recover it", "You lose access to your digital assets forever", "Nothing, you can just use your public key"], a: 2, e: "Because blockchain is decentralized, there is no 'forgot password' button. The private key is the only access." },
+            { q: "What is a 'Public Key'?", options: ["A secret password", "An address that can be shared with others to receive funds", "The hash of the entire block", "The consensus algorithm"], a: 1, e: "The public key is derived from the private key and acts as your receiving address on the network." },
+            { q: "What is a Digital Signature?", options: ["A scanned copy of a handwritten signature", "A cryptographic proof that a transaction was created by the owner of the private key", "A username and password", "A watermark on an image"], a: 1, e: "Digital signatures ensure authenticity and non-repudiation in blockchain transactions." },
+            { q: "Which algorithm generates the public and private keys in Bitcoin?", options: ["RSA", "SHA-256", "Elliptic Curve Cryptography (ECC)", "MD5"], a: 2, e: "Bitcoin uses the Elliptic Curve Digital Signature Algorithm (ECDSA) for key generation." },
+            { q: "What does a 'Merkle Tree' do in a blockchain block?", options: ["It provides oxygen to the server", "It efficiently summarizes all the transactions in a block into a single 'Merkle Root' hash", "It grows new blocks", "It encrypts private keys"], a: 1, e: "A Merkle Tree hashes pairs of transactions recursively until a single hash (the root) is formed, saving space." },
+            { q: "What is the primary benefit of the Merkle Root?", options: ["It generates cryptocurrency", "It allows a node to verify if a specific transaction is included in a block without downloading the entire block", "It increases transaction speed", "It hides user IP addresses"], a: 1, e: "This is crucial for Simple Payment Verification (SPV) nodes, which only download block headers." },
+            { q: "If a single transaction within a block is altered, what happens to the Merkle Root?", options: ["Nothing happens", "The Merkle Root changes completely, invalidating the block header", "The block gets heavier", "The transaction is deleted"], a: 1, e: "Because the Merkle Root is derived from all transactions, altering one transaction changes the root hash." },
+            { q: "Which of the following is an example of Symmetric Cryptography?", options: ["RSA", "ECDSA", "AES (Advanced Encryption Standard)", "SHA-256"], a: 2, e: "AES is symmetric (uses the same key for encryption and decryption), but blockchain relies primarily on asymmetric cryptography." },
+            { q: "Why is Asymmetric Cryptography preferred for Blockchain over Symmetric?", options: ["It is much faster", "It uses only one key", "It allows secure key exchange and verifiable digital signatures without sharing the secret key", "It doesn't use math"], a: 2, e: "Users can freely share their public key to receive funds while keeping their private key secret to sign transactions." },
+            { q: "What data does the 'Block Header' typically contain?", options: ["Every single transaction detail", "Previous block hash, Merkle Root, Timestamp, and Nonce", "The user's private key", "A list of all network IP addresses"], a: 1, e: "The block header contains the metadata of the block and is the part that is actually hashed during mining." },
+            { q: "What is a 'Nonce'?", options: ["A type of cryptocurrency", "A 'Number Used Once' that miners change repeatedly to find a valid block hash", "A smart contract function", "A node manager"], a: 1, e: "Miners alter the nonce in the block header to change the resulting hash until it meets the network's difficulty target." },
+            { q: "What is the 'Difficulty Target' in Bitcoin mining?", options: ["The number of transactions allowed", "A specific condition the block hash must meet (e.g., starting with a certain number of zeroes)", "The price of Bitcoin", "The internet speed required"], a: 1, e: "The difficulty target adjusts automatically to ensure blocks are mined approximately every 10 minutes." },
+
+            // 41-60: Consensus Mechanisms
+            { q: "What is a Consensus Algorithm?", options: ["A legal contract", "A mechanism through which all nodes in a network agree on the single true state of the ledger", "A type of database", "A hashing function"], a: 1, e: "Consensus ensures all decentralized nodes agree on which transactions are valid and added to the chain." },
+            { q: "Which consensus mechanism does Bitcoin use?", options: ["Proof of Stake (PoS)", "Delegated Proof of Stake (DPoS)", "Proof of Work (PoW)", "Practical Byzantine Fault Tolerance (PBFT)"], a: 2, e: "Bitcoin uses Proof of Work, requiring miners to solve complex mathematical puzzles." },
+            { q: "In Proof of Work (PoW), how is the right to add a block determined?", options: ["By holding the most coins", "By voting", "By being the first miner to solve a computationally intensive cryptographic puzzle", "By a central admin"], a: 2, e: "PoW relies on raw computational power (hashing power) to secure the network." },
+            { q: "What is the primary drawback of Proof of Work?", options: ["It is not secure", "It consumes massive amounts of electricity and computing hardware", "It requires no electricity", "It relies on a central bank"], a: 1, e: "PoW is criticized for its immense environmental impact and high energy consumption." },
+            { q: "Which consensus mechanism selects validators based on the amount of cryptocurrency they 'lock up' as collateral?", options: ["Proof of Work", "Proof of Authority", "Proof of Capacity", "Proof of Stake (PoS)"], a: 3, e: "In PoS, validators stake their own coins. The more they stake, the higher their chance of forging the next block." },
+            { q: "What happens to a validator in PoS if they try to validate fraudulent transactions?", options: ["They get promoted", "They are given a warning", "Their staked coins are 'slashed' (confiscated or destroyed)", "Nothing happens"], a: 2, e: "Slashing is the economic penalty in PoS that keeps validators honest." },
+            { q: "Ethereum transitioned from Proof of Work to Proof of Stake. What was this event called?", options: ["The Fork", "The Merge", "The Halving", "The Genesis"], a: 1, e: "The Merge occurred in 2022, shifting Ethereum to PoS and reducing its energy consumption by 99%." },
+            { q: "What is Delegated Proof of Stake (DPoS)?", options: ["Every user mines with their CPU", "Coin holders vote for a small number of 'delegates' who are responsible for validating blocks", "A mechanism based on hard drive space", "A centralized database"], a: 1, e: "DPoS acts like a digital democracy, improving transaction speeds by using a smaller number of trusted delegates." },
+            { q: "What does the Byzantine Generals Problem illustrate in distributed systems?", options: ["How to fight physical wars", "The challenge of reaching agreement in a network where some nodes may be faulty or malicious", "How to optimize storage space", "How to increase network speed"], a: 1, e: "Blockchain solves this problem, ensuring the system functions correctly even if some participants are bad actors." },
+            { q: "What does 'Fault Tolerance' mean?", options: ["The system crashes on the first error", "The ability of a system to continue operating properly in the event of the failure of some of its components", "A network with zero bugs", "A user forgetting a password"], a: 1, e: "Consensus algorithms provide fault tolerance against malicious or disconnected nodes." },
+            { q: "In a '51% Attack', what does the attacker control?", options: ["51% of the total cryptocurrency supply", "51% of the network's computing power (hash rate), allowing them to rewrite transaction history", "51% of the internet bandwidth", "51% of the company shares"], a: 1, e: "Controlling the majority hash rate allows an attacker to reverse their own transactions (double-spending)." },
+            { q: "Why is a 51% attack highly unlikely on the Bitcoin network?", options: ["Because Bitcoin has an admin", "Because the network is so massive, acquiring 51% of the computing power is economically and physically unfeasible", "Because of laws", "Because Bitcoin uses PoS"], a: 1, e: "The sheer scale of Bitcoin's network makes an attack practically impossible." },
+            { q: "What is Proof of Authority (PoA)?", options: ["A system where anonymous miners solve puzzles", "A consensus method where blocks are validated by approved, known, and trusted entities", "A system based on hard drive space", "A system that requires no network"], a: 1, e: "PoA sacrifices some decentralization for high speed and is often used in private blockchains." },
+            { q: "What does 'Block Time' refer to?", options: ["The time of day the network turns on", "The time a user spends on a blockchain website", "The average time it takes for the network to generate a new block", "The time required to download the ledger"], a: 2, e: "For example, Bitcoin's block time is approximately 10 minutes." },
+            { q: "What is 'Forking' in blockchain?", options: ["A tool for eating", "A split in the blockchain network resulting from a protocol update or disagreement", "A type of encryption", "A method to delete data"], a: 1, e: "Forks happen when nodes disagree on the software rules, creating two diverging chains." },
+            { q: "What is a 'Hard Fork'?", options: ["A temporary split that resolves itself", "A backward-incompatible upgrade; nodes that don't upgrade cannot participate in the new network", "An upgrade that doesn't require downloading", "A new physical server"], a: 1, e: "A hard fork permanently splits the chain, sometimes creating two separate cryptocurrencies (like Bitcoin and Bitcoin Cash)." },
+            { q: "What is a 'Soft Fork'?", options: ["A hardware failure", "A physical break in a server", "A backward-compatible upgrade; non-upgraded nodes can still read the new blocks", "A malicious hack"], a: 2, e: "Soft forks tighten rules, allowing old nodes to still interact with the network." },
+            { q: "What is 'Sybil Attack'?", options: ["Attacking a specific user", "An attacker subverting a reputation system by creating a large number of pseudonymous identities", "Deleting the blockchain", "Stealing hardware"], a: 1, e: "Consensus mechanisms like PoW and PoS make Sybil attacks too expensive to carry out." },
+            { q: "How does Proof of Work prevent Sybil attacks?", options: ["By asking for ID cards", "By tying network influence to physical computing power and energy cost, which cannot be faked easily", "By limiting IP addresses", "It doesn't prevent them"], a: 1, e: "You can create a million fake nodes, but without real computing power, they cannot mine blocks." },
+            { q: "What is a 'Miner's Reward'?", options: ["A digital certificate", "A physical gold coin", "The newly created cryptocurrency (Block Subsidy) plus transaction fees given to the miner who solves the block", "A promotion"], a: 2, e: "The reward incentivizes miners to expend energy to secure the network." },
+
+            // 61-80: Bitcoin Specifics & Mechanics
+            { q: "What is the maximum supply of Bitcoin that will ever exist?", options: ["Unlimited", "100 Million", "21 Million", "1 Billion"], a: 2, e: "Bitcoin has a hard cap of 21 million coins written into its code to prevent inflation." },
+            { q: "What is the smallest unit of a Bitcoin?", options: ["A Bit", "A Nakamoto", "A Satoshi", "A Byte"], a: 2, e: "One Satoshi is equal to 0.00000001 BTC." },
+            { q: "What does 'UTXO' stand for in Bitcoin architecture?", options: ["Unified Token Exchange Operation", "Unspent Transaction Output", "Universal Transfer XML Object", "Unknown Transaction X-axis Origin"], a: 1, e: "Bitcoin uses the UTXO model to track balances, meaning your balance is the sum of all unspent outputs directed to you." },
+            { q: "In the UTXO model, what must happen when you spend Bitcoin?", options: ["You only send the exact fraction needed", "You must spend the entire UTXO and send the change back to yourself", "You have to contact the bank", "The transaction is split into infinite pieces"], a: 1, e: "UTXOs cannot be divided; they are consumed entirely, and change is returned as a new UTXO." },
+            { q: "What is the 'Bitcoin Halving'?", options: ["The price of Bitcoin dropping by 50%", "The network speed dividing in half", "An event every 4 years where the block reward given to miners is cut in half", "A hack that steals half the coins"], a: 2, e: "Halving controls inflation and reduces the rate at which new Bitcoins enter circulation." },
+            { q: "Roughly how often does a Bitcoin Halving occur?", options: ["Every 1 year", "Every 210,000 blocks (approx. 4 years)", "Every 10 years", "Every month"], a: 1, e: "The protocol dictates a halving exactly every 210,000 blocks." },
+            { q: "What are 'Transaction Fees' in blockchain?", options: ["Taxes paid to the government", "Fees paid to the creator of the blockchain", "Small fees paid by the sender to incentivize miners/validators to include their transaction in a block", "Fees for internet usage"], a: 2, e: "Miners prioritize transactions with higher fees, especially when the network is congested." },
+            { q: "What is a 'Mempool' (Memory Pool)?", options: ["A pool of water to cool servers", "A holding area for unconfirmed transactions waiting to be picked up by a miner and added to a block", "A list of banned users", "A backup database"], a: 1, e: "Transactions sit in the mempool until a miner includes them in a block." },
+            { q: "What happens if you send a Bitcoin transaction with too low a fee?", options: ["The transaction processes instantly", "It may sit in the mempool unconfirmed for a long time or get dropped", "The receiver gets charged instead", "The account is banned"], a: 1, e: "Miners ignore low-fee transactions if there are higher-paying ones available." },
+            { q: "What is an 'ASIC' in the context of mining?", options: ["Application-Specific Integrated Circuit: hardware built specifically and only for mining cryptocurrency", "A type of software virus", "A blockchain network protocol", "An anonymous secure internet connection"], a: 0, e: "ASICs are incredibly powerful machines dedicated entirely to running the SHA-256 hashing algorithm." },
+            { q: "Why did mining move from CPUs to GPUs, and eventually to ASICs?", options: ["Because CPUs were too expensive", "Because ASICs provide exponentially more hashing power for the same amount of electricity", "Because monitors got larger", "Because CPUs cannot run code"], a: 1, e: "Mining is an arms race for hashing efficiency." },
+            { q: "What is a 'Mining Pool'?", options: ["A group of miners pooling their computing power to increase the chances of finding a block, sharing the rewards", "A cooling system for servers", "A bank account for hackers", "A list of all blockchains"], a: 0, e: "Solo mining is statistically unlikely to win a block, so miners combine their power and split the profits." },
+            { q: "What is an 'SPV' (Simplified Payment Verification) node?", options: ["A node that mines blocks", "A lightweight node that only downloads block headers instead of the entire blockchain, useful for mobile wallets", "A central server", "A node that creates smart contracts"], a: 1, e: "SPVs allow users to interact with the blockchain securely without needing hundreds of gigabytes of storage." },
+            { q: "What is a 'Full Node'?", options: ["A node with a full hard drive", "A computer that downloads and verifies the entire history of the blockchain, enforcing all rules", "A user interface", "An admin dashboard"], a: 1, e: "Full nodes form the backbone of the network by independently verifying every transaction." },
+            { q: "If two miners solve a block at the exact same time, what happens?", options: ["The network crashes", "A temporary fork occurs; the network eventually adopts the chain that becomes the longest (most cumulative work)", "Both get the reward", "An admin decides"], a: 1, e: "The 'Longest Chain Rule' dictates that nodes always follow the chain with the most proof of work." },
+            { q: "What is the 'Longest Chain Rule' (Nakamoto Consensus)?", options: ["The chain with the most data is correct", "The chain with the most accumulated Proof of Work is considered the valid and true history", "The chain with the oldest blocks is correct", "The chain with the highest price is correct"], a: 1, e: "This resolves forks automatically by trusting the chain that had the most energy expended on it." },
+            { q: "What is a 'Cold Wallet'?", options: ["An application on a smartphone", "A cryptocurrency wallet that is stored offline (like a USB hardware device) for maximum security", "A frozen bank account", "A wallet with no funds"], a: 1, e: "Cold wallets protect private keys from being exposed to internet-connected devices." },
+            { q: "What is a 'Hot Wallet'?", options: ["A wallet with stolen funds", "A wallet connected to the internet (like a mobile app or exchange), convenient but more vulnerable to hacks", "A physical paper wallet", "A wallet that mines crypto"], a: 1, e: "Hot wallets are used for daily transactions but shouldn't hold large amounts of wealth." },
+            { q: "What is a 'Seed Phrase' (Recovery Phrase)?", options: ["A password for an email", "A list of 12-24 random words that mathematically represent the private key, used to recover a wallet", "A phrase used to send messages", "A type of encryption"], a: 1, e: "If a user loses their device, the seed phrase can restore access to their crypto." },
+            { q: "What does it mean when a transaction has '6 Confirmations' in Bitcoin?", options: ["Six users have clicked 'Like'", "It has been included in a block, and 5 subsequent blocks have been built on top of it, making it extremely secure", "Six administrators approved it", "It is pending"], a: 1, e: "More confirmations mean it is statistically impossible for the transaction to be reversed." },
+
+            // 81-100: Ethereum & Smart Contracts
+            { q: "Who proposed the Ethereum blockchain?", options: ["Satoshi Nakamoto", "Vitalik Buterin", "Charles Hoskinson", "Gavin Wood"], a: 1, e: "Vitalik Buterin published the Ethereum whitepaper in 2013 to introduce programmable smart contracts." },
+            { q: "What is the primary difference between Bitcoin and Ethereum?", options: ["Bitcoin is a smart contract platform, Ethereum is just money", "Ethereum introduced a Turing-complete virtual machine capable of running complex Smart Contracts", "Ethereum uses SHA-256", "Bitcoin is private, Ethereum is public"], a: 1, e: "While Bitcoin is a digital calculator for money, Ethereum is a global decentralized computer." },
+            { q: "What is a 'Smart Contract'?", options: ["A legal document signed online", "Self-executing code stored on the blockchain that automatically runs when predetermined conditions are met", "A smart artificial intelligence", "A contract written by a lawyer"], a: 1, e: "Smart contracts automate agreements without needing a middleman." },
+            { q: "What does 'Turing Complete' mean in the context of Ethereum?", options: ["It was invented by Alan Turing", "The system can execute any computational logic or loop given enough time and resources", "It can only do basic math", "It only runs on PCs"], a: 1, e: "This allows developers to build any kind of application (DApp) on Ethereum." },
+            { q: "What is the EVM?", options: ["Electronic Voting Machine", "Ethereum Virtual Machine: the runtime environment that executes smart contracts on every node", "Ether Value Metric", "Enterprise Virtual Monitor"], a: 1, e: "The EVM ensures that all nodes execute the smart contract code in exactly the same way." },
+            { q: "Which programming language is most commonly used to write Ethereum smart contracts?", options: ["Java", "Python", "Solidity", "C++"], a: 2, e: "Solidity is an object-oriented, high-level language designed specifically for the EVM." },
+            { q: "What is 'Gas' in the Ethereum network?", options: ["Fuel for servers", "A unit measuring the computational effort required to execute operations or smart contracts", "A type of cryptocurrency", "A graphical interface"], a: 1, e: "Every calculation on the EVM costs Gas, preventing infinite loops and spam." },
+            { q: "Why is Gas necessary in Ethereum?", options: ["To make transactions slow", "To compensate validators for their computing resources and prevent denial-of-service (infinite loop) attacks", "To track user locations", "To encrypt data"], a: 1, e: "If a smart contract has an infinite loop, it will eventually run out of Gas and stop, protecting the network." },
+            { q: "How is Gas paid for?", options: ["Using US Dollars", "Using Bitcoin", "Using Ether (ETH), the native cryptocurrency of the Ethereum network", "Using credit cards"], a: 2, e: "Users must spend a small amount of ETH to execute any transaction or contract." },
+            { q: "What is a 'DApp'?", options: ["A Decentralized Application: an app that runs its backend code on a decentralized peer-to-peer network", "A Data Application", "A Distributed API", "A Desktop App"], a: 0, e: "Unlike normal apps that run on centralized servers like AWS, DApps run on blockchain nodes." },
+            { q: "What does 'ERC-20' represent in Ethereum?", options: ["A hardware standard", "A technical standard used for creating and implementing fungible tokens on the Ethereum blockchain", "A type of wallet", "An error code"], a: 1, e: "ERC-20 standardizes how tokens behave, allowing them to easily integrate into wallets and exchanges." },
+            { q: "What does 'Fungible' mean?", options: ["It is a type of mushroom", "An asset that is completely interchangeable with another of the same type (like a $1 bill)", "A unique, one-of-a-kind item", "Something that cannot be traded"], a: 1, e: "Bitcoin, ETH, and physical cash are fungible. One is identical in value to another." },
+            { q: "What does 'NFT' stand for?", options: ["Non-Financial Transaction", "Network File Transfer", "Non-Fungible Token", "New Form Technology"], a: 2, e: "NFTs are cryptographic assets on a blockchain with unique identification codes that distinguish them from each other." },
+            { q: "Which Ethereum standard is primarily used for creating NFTs?", options: ["ERC-20", "ERC-721", "ERC-10", "HTTP"], a: 1, e: "ERC-721 is the standard for non-fungible tokens, ensuring each token is unique." },
+            { q: "What is an 'Oracle' in blockchain technology?", options: ["A wise user", "A third-party service that feeds real-world outside data (like stock prices or weather) to a smart contract", "A database server", "A type of cryptocurrency"], a: 1, e: "Blockchains cannot access the internet themselves; Oracles act as bridges to external data." },
+            { q: "Why are Oracles necessary for advanced smart contracts?", options: ["To provide a user interface", "To provide external data because smart contracts are isolated and cannot 'fetch' data from websites", "To mine blocks", "To encrypt passwords"], a: 1, e: "Without Oracles, smart contracts could only rely on data already existing on the blockchain." },
+            { q: "What is a 'DAO'?", options: ["Digital Autonomous Operator", "Decentralized Autonomous Organization: an entity governed by smart contracts and token-holder voting instead of a central CEO", "Data Access Object", "Distributed Application Output"], a: 1, e: "DAOs operate transparently on the blockchain according to pre-written rules." },
+            { q: "What does the term 'Account-based model' refer to in Ethereum?", options: ["Users must create a username and password", "Unlike Bitcoin's UTXO model, Ethereum tracks global balances of accounts directly, like a traditional bank", "Paying monthly fees", "Creating multiple bank accounts"], a: 1, e: "The account model is simpler for smart contract execution than tracking thousands of unspent outputs." },
+            { q: "What is 'Wei'?", options: ["A blockchain founder", "A consensus algorithm", "The smallest denomination of Ether (1 ETH = 10^18 Wei)", "A smart contract function"], a: 2, e: "Just like Satoshi is the smallest unit of Bitcoin, Wei is the smallest unit of Ether." },
+            { q: "What was the 'DAO Hack' of 2016?", options: ["A physical bank robbery", "A major smart contract exploit that stole millions in ETH, resulting in Ethereum hard-forking into ETH and Ethereum Classic", "A virus that deleted hard drives", "A DDoS attack on a website"], a: 1, e: "The community voted to hard-fork the chain to reverse the hack, causing controversy regarding immutability." },
+
+            // 101-125: Types of Blockchain & Architecture
+            { q: "What is a 'Public Blockchain'?", options: ["A permissionless network where anyone can read, write, and participate in consensus", "A blockchain owned by the government", "A network requiring ID to join", "A completely centralized database"], a: 0, e: "Bitcoin and Ethereum are public, permissionless blockchains." },
+            { q: "What is a 'Private Blockchain'?", options: ["A blockchain hidden from the internet", "A permissioned network controlled by a single organization that dictates who can join and validate", "A blockchain with no encryption", "A decentralized ledger"], a: 1, e: "Private blockchains are used by enterprises for internal data management." },
+            { q: "What is a 'Consortium Blockchain'?", options: ["A public cryptocurrency", "A semi-decentralized network managed by a group of pre-approved organizations rather than a single entity", "A blockchain for a single user", "An obsolete technology"], a: 1, e: "Consortiums are popular among banks or supply chains where multiple distinct companies need a shared ledger." },
+            { q: "Which of the following is an example of a Public Blockchain?", options: ["Hyperledger Fabric", "Corda", "Bitcoin", "R3"], a: 2, e: "Anyone can download the Bitcoin software and participate immediately." },
+            { q: "Which of the following is an open-source framework designed for Enterprise (Permissioned) blockchains?", options: ["Ethereum", "Hyperledger Fabric", "Dogecoin", "Litecoin"], a: 1, e: "Hyperledger Fabric, hosted by the Linux Foundation, allows businesses to create private networks with strict privacy controls." },
+            { q: "Why might a bank prefer a Private/Consortium blockchain over a Public one?", options: ["It uses more electricity", "To maintain privacy, control permissions, and process transactions much faster", "To allow anonymous hackers to join", "Because public blockchains are illegal"], a: 1, e: "Enterprises need regulatory compliance, privacy of transactions, and high throughput, which public chains struggle with." },
+            { q: "In Hyperledger Fabric, what is 'Chaincode'?", options: ["A physical lock", "The equivalent of a Smart Contract, containing the business logic", "A cryptocurrency", "The consensus algorithm"], a: 1, e: "Chaincode is the program that initializes and manages ledger state through transactions." },
+            { q: "Does Hyperledger Fabric have a native cryptocurrency?", options: ["Yes, Hypercoin", "Yes, Bitcoin", "No, it is a framework for enterprise logic, not a cryptocurrency platform", "Yes, Ether"], a: 2, e: "Fabric focuses on business B2B processes, which do not inherently require a speculative token." },
+            { q: "What is the 'Scalability Trilemma' in blockchain?", options: ["The idea that a blockchain can only optimize for two of three features: Decentralization, Security, and Scalability", "A 3-node network", "A legal framework", "A cryptographic puzzle"], a: 0, e: "It is difficult to make a blockchain fast (scalable) without sacrificing decentralization or security." },
+            { q: "What is a 'Layer 2' solution in blockchain?", options: ["A hardware upgrade", "A secondary framework or protocol built on top of an existing blockchain (Layer 1) to improve transaction speeds", "A type of encryption", "The physical internet cable"], a: 1, e: "Examples include the Lightning Network (Bitcoin) and Arbitrum (Ethereum)." },
+            { q: "How does the 'Lightning Network' improve Bitcoin?", options: ["It changes the hashing algorithm", "It creates off-chain payment channels allowing instant, nearly free micro-transactions that are later settled on the main chain", "It creates a new coin", "It adds smart contracts"], a: 1, e: "Layer 2 solutions handle the volume, while Layer 1 handles the final secure settlement." },
+            { q: "What is a 'Sidechain'?", options: ["A chain worn on the side", "A separate blockchain attached to a main blockchain via a two-way peg, operating with its own rules", "A backup hard drive", "A type of malware"], a: 1, e: "Sidechains run parallel to the main chain, easing congestion." },
+            { q: "What is 'Interoperability' in blockchain?", options: ["The ability for a node to turn on", "The ability of different, distinct blockchain networks to communicate and share data/value with each other", "A strict privacy law", "A consensus mechanism"], a: 1, e: "Projects like Polkadot and Cosmos focus on connecting isolated blockchains." },
+            { q: "What does 'Permissioned' mean in the context of blockchain?", options: ["Anyone can join", "Access is restricted and participants must be granted rights to view or write to the ledger", "It is illegal to use", "It requires no passwords"], a: 1, e: "Permissioned chains require identity verification." },
+            { q: "What is 'Sharding'?", options: ["A database partitioning technique that splits a blockchain into smaller, manageable segments (shards) to increase speed", "Deleting old data", "Encrypting passwords", "Combining multiple chains into one"], a: 0, e: "Sharding allows parallel processing, significantly increasing the transaction throughput of the network." },
+            { q: "What is a 'Hash Pointer'?", options: ["A computer mouse", "A pointer that gives the location of data and the cryptographic hash of that data, ensuring it hasn't been tampered with", "A type of array", "A physical address"], a: 1, e: "In a blockchain, each block contains a hash pointer to the previous block." },
+            { q: "What is the 'State' of a blockchain?", options: ["The country it is hosted in", "The current snapshot of all balances and contract variables at a given moment in time", "The internet speed", "The type of hardware used"], a: 1, e: "The state changes every time a new block of transactions is added." },
+            { q: "What is 'Cryptojacking'?", options: ["Stealing physical crypto wallets", "Maliciously installing software on a victim's computer to secretly mine cryptocurrency using their processing power", "Guessing a password", "Hacking an exchange"], a: 1, e: "Cryptojacking steals the victim's electricity and CPU power to benefit the hacker." },
+            { q: "What happens in a 'Replay Attack'?", options: ["A hacker intercepts a valid data transmission and maliciously delays or resends it to trick the system", "A user watches a video twice", "The blockchain deletes data", "An antivirus scans a file"], a: 0, e: "Proper transaction signing and nonces prevent the same transaction from being processed twice." },
+            { q: "What is the purpose of 'Zero-Knowledge Proofs' (ZKP)?", options: ["To prove you know a secret without revealing the secret itself, maintaining absolute privacy", "To prove you know nothing", "To delete data completely", "To skip authentication"], a: 0, e: "ZKPs are advanced cryptography used in privacy coins like Zcash to verify transactions without showing balances or addresses." },
+            { q: "What is 'Finality' in blockchain?", options: ["The end of the blockchain", "The guarantee that past transactions can never be revoked or altered", "The last block mined for the day", "The process of shutting down a node"], a: 1, e: "In PoW, finality is probabilistic (more blocks = more final). In PBFT, finality is absolute once a block is agreed upon." },
+            { q: "Which attack involves a node secretly mining a longer alternate chain and releasing it all at once to override the public chain?", options: ["Sybil Attack", "Selfish Mining", "DDoS Attack", "Phishing"], a: 1, e: "Selfish mining allows a miner to gain an unfair advantage in rewards and potentially double-spend." },
+            { q: "What is an 'ICO'?", options: ["Initial Coin Offering: a fundraising method where a new project sells its underlying crypto tokens in exchange for capital", "Internal Computer Operation", "International Cryptography Organization", "Input Control Object"], a: 0, e: "ICOs act similarly to IPOs but in the unregulated cryptocurrency space." },
+            { q: "What is 'DeFi'?", options: ["Decentralized Finance: a movement to recreate traditional financial systems (loans, exchanges) using smart contracts without banks", "Definitive Finance", "Delayed Finality", "Digital File storage"], a: 0, e: "DeFi protocols operate completely autonomously via smart contracts on networks like Ethereum." },
+            { q: "What is an Automated Market Maker (AMM) in DeFi?", options: ["A robot that trades stocks", "A smart contract that allows digital assets to be traded automatically without a traditional buyer-seller order book", "A human broker", "A central bank protocol"], a: 1, e: "AMMs use mathematical formulas to price assets and rely on Liquidity Pools provided by users." },
+
+            // 126-150: Applications & Future Concepts
+            { q: "How does Blockchain benefit Supply Chain Management?", options: ["By replacing physical trucks", "By providing an immutable, transparent, and traceable history of a product from origin to consumer", "By reducing shipping speed", "By keeping supplier identities completely secret"], a: 1, e: "Consumers and companies can verify the authenticity and ethical sourcing of products (e.g., tracking diamonds or food)." },
+            { q: "How can Blockchain be applied to Healthcare?", options: ["To perform surgeries remotely", "To create a secure, interoperable system for managing electronic electronic health records (EHRs) while maintaining patient privacy", "To manufacture medicines", "To replace doctors"], a: 1, e: "Patients can grant specific doctors access to their encrypted health records stored on a blockchain." },
+            { q: "What is 'Self-Sovereign Identity' (SSI)?", options: ["A king's digital profile", "A concept where individuals have sole ownership and control over their digital identities, independent of central authorities", "A centralized database of passports", "A fake online profile"], a: 1, e: "SSI uses blockchain to let you prove who you are without relying on Google or Facebook to store your data." },
+            { q: "How can smart contracts revolutionize the Insurance industry?", options: ["By printing paper policies faster", "By automatically triggering payouts based on specific data inputs (Oracles), like a flight cancellation or crop failure", "By ignoring claims", "By replacing money with points"], a: 1, e: "Parametric insurance eliminates bureaucratic delays and human error in claims processing." },
+            { q: "What is a key benefit of Blockchain in Electronic Voting?", options: ["It allows people to vote multiple times", "It provides a transparent, tamper-proof, and verifiable voting record, eliminating fraud", "It forces users to reveal who they voted for", "It makes counting votes slower"], a: 1, e: "While technically challenging, blockchain voting ensures immutability of the final tally." },
+            { q: "How is blockchain transforming the gaming industry?", options: ["By making graphics look worse", "By allowing players to truly own in-game assets as NFTs, which they can sell or trade outside the game", "By forcing games to be text-based", "By removing the need for internet"], a: 1, e: "Web3 gaming shifts the paradigm from renting digital items to true digital ownership." },
+            { q: "What is 'Tokenization'?", options: ["Playing arcade games", "The process of converting real-world physical assets (like real estate or art) into digital tokens on a blockchain", "Deleting data", "Encrypting a password"], a: 1, e: "Tokenization allows fractional ownership and highly liquid trading of historically illiquid assets." },
+            { q: "What is a CBDC?", options: ["Central Bank Digital Currency: a digital form of a country's fiat currency issued and regulated by the nation's monetary authority", "Crypto Base Data Center", "Central Blockchain Distribution Code", "A decentralized stablecoin"], a: 0, e: "Unlike Bitcoin, a CBDC is highly centralized and fully controlled by a government." },
+            { q: "How does a 'Stablecoin' differ from Bitcoin?", options: ["It changes price randomly", "Its value is pegged to a stable asset, like the US Dollar or Gold, to minimize price volatility", "It cannot be traded", "It is a physical coin"], a: 1, e: "Stablecoins (like USDT or USDC) combine the speed of crypto with the stability of fiat money." },
+            { q: "How do IoT (Internet of Things) and Blockchain complement each other?", options: ["Blockchain deletes IoT data", "IoT devices generate data, and Blockchain secures it immutably, ensuring device data isn't tampered with by hackers", "They are incompatible", "IoT replaces blockchain"], a: 1, e: "For example, a smart thermometer in a shipping container logs temperatures immutably to a blockchain to prove food safety." },
+            { q: "What is 'Corda'?", options: ["An open-source public cryptocurrency", "A private, permissioned distributed ledger platform designed heavily for the financial industry by R3", "A mining rig", "A consensus algorithm"], a: 1, e: "Corda differs from traditional blockchains as it only shares transaction data with those involved in the transaction." },
+            { q: "What does 'Provably Fair' mean in blockchain applications?", options: ["An algorithm that allows users to verify that outcomes (like in digital lotteries or games) were genuinely random and not manipulated", "A fair price for crypto", "A legally binding contract", "A judge's ruling"], a: 0, e: "Using cryptographic hashing, users can independently verify the fairness of a system." },
+            { q: "What is 'InterPlanetary File System' (IPFS)?", options: ["A file format for images", "A peer-to-peer hypermedia protocol designed to make the web faster, safer, and more open by storing files decentrally", "A type of blockchain", "A NASA project"], a: 1, e: "IPFS is often used alongside blockchain to store heavy files (like NFT images) off-chain securely." },
+            { q: "What does 'Off-chain' mean?", options: ["Data or transactions handled outside the main blockchain to save space and reduce costs", "A disconnected computer", "A broken network", "Data that is deleted"], a: 0, e: "Because blockchain storage is expensive, large files or micro-transactions are often handled off-chain." },
+            { q: "What is an 'Airdrop' in the cryptocurrency space?", options: ["Dropping a physical hard drive", "A marketing stunt where a project distributes free tokens or coins to wallet addresses of early adopters", "A hack that steals coins", "Airdropping files via Bluetooth"], a: 1, e: "Airdrops help bootstrap a network effect by rewarding users who interacted with a protocol." },
+            { q: "What is the function of a 'Block Explorer'?", options: ["A game about mining", "A search engine (like Etherscan) that allows users to view block details, addresses, and transaction histories on a blockchain", "A tool for deleting blocks", "An antivirus scanner"], a: 1, e: "Explorers make the concept of blockchain transparency usable for the average person." },
+            { q: "What is 'Front-Running' in blockchain?", options: ["Running physically while coding", "A malicious practice where a miner or bot sees a pending transaction in the mempool and places their own transaction first to profit", "Mining blocks faster than others", "Bypassing passwords"], a: 1, e: "Because the mempool is public, bots can exploit the slight delay before a transaction is confirmed." },
+            { q: "What does 'MEV' stand for?", options: ["Maximal Extractable Value: the maximum profit a miner/validator can make by reordering, inserting, or ignoring transactions in a block", "Minimum Ether Value", "Multiple Encryption Variables", "Main Electronic Vault"], a: 0, e: "MEV is a major topic in Ethereum regarding the fairness of transaction ordering." },
+            { q: "What is a 'Rug Pull'?", options: ["Cleaning a server room", "A malicious scam where cryptocurrency developers abandon a project and run away with investors' funds", "A type of smart contract", "A method to speed up transactions"], a: 1, e: "Rug pulls are common in unregulated DeFi spaces where creators drain liquidity pools." },
+            { q: "What is the primary barrier to mainstream blockchain adoption?", options: ["Lack of interest", "Regulatory uncertainty, scaling issues, and a steep learning curve for users (managing private keys)", "It is too easy to hack", "The internet is not fast enough"], a: 1, e: "The complexity of UX and unclear government regulations keep many enterprises hesitant." },
+            { q: "What is a 'Hardware Wallet'?", options: ["A heavy leather wallet", "A physical electronic device built specifically to secure crypto private keys offline", "A server rack", "A mining ASIC"], a: 1, e: "Devices like Ledger or Trezor are hardware wallets, offering top-tier security against online hacks." },
+            { q: "Which feature of Blockchain prevents 'Data Silos' in large corporations?", options: ["The use of single central servers", "The shared, distributed nature of the ledger ensures all departments see a single source of truth in real-time", "Encryption of data", "Deleting old data"], a: 1, e: "Instead of each department having its own mismatched database, they share one synchronized ledger." },
+            { q: "What is 'Quantum Supremacy' and its threat to Blockchain?", options: ["A new cryptocurrency", "The theoretical point where quantum computers can easily break the public-key cryptography (like RSA/ECC) used in current blockchains", "A space exploration term", "A consensus algorithm"], a: 1, e: "Future quantum computers could potentially derive private keys from public keys, requiring blockchains to upgrade to quantum-resistant algorithms." },
+            { q: "What does 'Web3' generally refer to?", options: ["The semantic web", "A decentralized internet built on blockchain technologies, emphasizing user ownership and decentralized protocols", "A new web browser by Google", "The internet in 1995"], a: 1, e: "Web1 was read-only, Web2 is read-write (social media), Web3 is read-write-own." },
+            { q: "Why is 'Immutability' critical for digital forensics in blockchain?", options: ["It deletes evidence", "It ensures that the transaction log serves as an indisputable, mathematically proven audit trail for investigators", "It makes the network faster", "It encrypts passwords"], a: 1, e: "Investigators know that historical blockchain data has not been tampered with." }
         ];
 
-        let currentIdx = 0;
-        let score = 0;
-        let answered = false;
+        let currentIdx = 0, score = 0, answered = false;
 
         function startQuiz() {
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
+            
+            const totalQuestions = questions.length;
+            document.getElementById('progress-text').innerText = `Question 1/${totalQuestions}`;
+            document.getElementById('final-total').innerText = `Correct out of ${totalQuestions}`;
+            
+            // Randomize options for each question initially
+            questions.forEach(q => {
+                const originalCorrect = q.options[q.a];
+                
+                // Fisher-Yates shuffle for options
+                for (let i = q.options.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+                }
+                
+                // Find new index of the correct answer
+                q.a = q.options.indexOf(originalCorrect);
+            });
+
             loadQuestion();
         }
 
         function loadQuestion() {
             const q = questions[currentIdx];
+            const totalQuestions = questions.length;
+            
             document.getElementById('question-text').innerText = q.q;
-            document.getElementById('progress-text').innerText = `Question ${currentIdx + 1}/50`;
-            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / 50) * 100}%`;
+            document.getElementById('progress-text').innerText = `Question ${currentIdx + 1}/${totalQuestions}`;
+            document.getElementById('progress-bar').style.width = `${((currentIdx + 1) / totalQuestions) * 100}%`;
             
             const container = document.getElementById('options-container');
             container.innerHTML = '';
             
             q.options.forEach((opt, i) => {
                 const btn = document.createElement('button');
-                btn.className = "option-btn w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-200 hover:bg-blue-50 font-medium text-sm text-slate-700 transition-all";
+                btn.className = "w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-blue-200 hover:bg-blue-50 font-medium text-sm text-slate-700 transition-all";
                 btn.innerText = opt;
                 btn.onclick = () => selectOption(i, btn);
                 container.appendChild(btn);
             });
-
+            
             document.getElementById('explanation-box').classList.add('hidden');
             document.getElementById('next-btn').classList.add('hidden');
             answered = false;
@@ -171,26 +273,20 @@
             answered = true;
             
             const q = questions[currentIdx];
-            const allBtns = document.querySelectorAll('.option-btn');
+            const allBtns = document.querySelectorAll('#options-container button');
             
             if (idx === q.a) {
                 score++;
-                btn.classList.replace('border-slate-100', 'border-green-500');
-                btn.classList.add('bg-green-50', 'text-green-700');
+                btn.classList.add('border-green-500', 'bg-green-50', 'text-green-700');
                 document.getElementById('score-text').innerText = `Score: ${score}`;
             } else {
-                btn.classList.replace('border-slate-100', 'border-red-500');
-                btn.classList.add('bg-red-50', 'text-red-700');
-                // Highlight correct one
-                allBtns[q.a].classList.replace('border-slate-100', 'border-green-500');
-                allBtns[q.a].classList.add('bg-green-50', 'text-green-700');
+                btn.classList.add('border-red-500', 'bg-red-50', 'text-red-700');
+                allBtns[q.a].classList.add('border-green-500', 'bg-green-50', 'text-green-700');
             }
-
-            // Show explanation
+            
             const exp = document.getElementById('explanation-box');
             exp.innerHTML = `<strong>Explanation:</strong> ${q.e}`;
             exp.classList.remove('hidden');
-            
             document.getElementById('next-btn').classList.remove('hidden');
         }
 
@@ -199,14 +295,10 @@
                 currentIdx++;
                 loadQuestion();
             } else {
-                showResults();
+                document.getElementById('quiz-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
             }
-        }
-
-        function showResults() {
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('result-screen').classList.remove('hidden');
-            document.getElementById('final-score').innerText = score;
         }
     </script>
 </body>
